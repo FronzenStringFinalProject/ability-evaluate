@@ -2,6 +2,8 @@ from pathlib import Path
 from sys import stderr
 
 import torch
+from py_irt.config import IrtConfig
+from py_irt.training import IrtModelTrainer
 
 import dataset_loader
 import result_serialize
@@ -9,9 +11,6 @@ import result_serialize
 model_type = '3pl'
 # FIXME: :"nvrtc: error: failed to open nvrtc-builtins64_118.dll.
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-
-from py_irt.config import IrtConfig
-from py_irt.training import IrtModelTrainer
 
 if __name__ == '__main__':
     parsed_config = {
