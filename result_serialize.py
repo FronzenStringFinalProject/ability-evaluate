@@ -9,8 +9,8 @@ class BestParams(BaseModel):
     disc: List[float]
     lambdas: List[float]
     irt_model: str
-    item_ids: Dict[str, str]
-    subject_ids: Dict[str, str]
+    item_ids: Dict[int, str]
+    subject_ids: Dict[int, str]
 
 
 class SubjectOutput(BaseModel):
@@ -30,10 +30,10 @@ def serialize(params: BestParams):
     id_to_quiz = params.item_ids
 
     for idx, ability in enumerate(params.ability):
-        output = SubjectOutput(subject_id=int(id_to_item[str(idx)]), ability=ability)
+        output = SubjectOutput(subject_id=int(id_to_item[idx]), ability=ability)
         yield output
 
     for idx, (diff, disc, lambdas) in enumerate(zip(params.diff, params.disc, params.lambdas)):
-        quiz_id = int(id_to_quiz[str(idx)])
+        quiz_id = int(id_to_quiz[idx])
         output = ItemOutput(item_id=quiz_id, diff=diff, disc=disc, lambdas=lambdas)
         yield output
